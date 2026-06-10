@@ -1,8 +1,10 @@
 #include <iostream>
-#include "cpu.h"
+#include "../include/define.h"
+#include "../include/cpu.h"
 
 int main()
 {
-	test();
+	CPU cpu;
+	cpu.displayReg();
 	return 0;
 }
