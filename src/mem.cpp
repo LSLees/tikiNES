@@ -1,7 +1,6 @@
 #include "../include/mem.h"
 
-void memWrite()
+void ramWrite()
 {
 
 }
-

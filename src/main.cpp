@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../include/define.h"
+#include "../include/common.h"
 #include "../include/cpu.h"
 
 int main()

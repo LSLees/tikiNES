@@ -1,15 +1,15 @@
 #pragma once
-#include <stdint.h>
+#include "../include/common.h"
 
 struct CPU
 {
 public:
-	uint8_t A = 0; // Accumulator reg
-	uint8_t X = 0; // Index reg
-	uint8_t Y = 0; // Index reg
-	uint16_t PC = 0; // Program counter
-	uint8_t S = 0; // Stack pointer
-	uint8_t P = 0; // Status reg
+	U8 A = 0; // Accumulator reg
+	U8 X = 0; // Index reg
+	U8 Y = 0; // Index reg
+	U16 PC = 0; // Program counter
+	U8 S = 0; // Stack pointer
+	U8 P = 0; // Status reg
 
 	void displayReg();
 };
