@@ -142,11 +142,13 @@
     <ClCompile Include="src\cpu.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\mem.cpp" />
+    <ClCompile Include="src\ppu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\cpu.h" />
     <ClInclude Include="include\common.h" />
     <ClInclude Include="include\mem.h" />
+    <ClInclude Include="include\ppu.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
