@@ -1,6 +1,7 @@
-#include "stdio.h"
+#include <iostream>
 
 int main()
 {
-    printf("hi");
+    std::cout << "hi" << std::endl;
+    return 0;
 }
