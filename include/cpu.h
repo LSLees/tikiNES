@@ -1,6 +1,14 @@
 #pragma once
 #include "../include/common.h"
 
+#define flag_C 0x01
+#define flag_Z 0x02
+#define flag_I 0x04
+#define flag_D 0x80
+#define flag_B 0x10
+#define flag_V 0x40
+#define flag_N 0x80
+
 struct CPU
 {
 public:
@@ -12,4 +20,7 @@ public:
 	U8 P = 0; // Status reg
 
 	void displayReg();
+	void flagSet(U8 flag);
+	void flagClear(U8 flag);
+	bool flagRead(U8 flag);
 };
