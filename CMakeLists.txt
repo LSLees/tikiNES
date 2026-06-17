@@ -16,12 +16,16 @@ add_library(coreNES
   src/mem.cpp
   src/nes.cpp
   src/ppu.cpp
+  src/mapper.cpp
+  src/cartridge.cpp
 
   include/common.h
   include/cpu.h
   include/mem.h
   include/nes.h
   include/ppu.h
+  include/mapper.h
+  include/cartridge.h
 )
 
 target_link_libraries(coreNES SDL3)
