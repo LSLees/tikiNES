@@ -17,6 +17,7 @@ add_library(coreNES
   src/nes.cpp
   src/ppu.cpp
   src/mapper.cpp
+  src/mapper000.cpp
   src/cartridge.cpp
 
   include/common.h
@@ -25,6 +26,7 @@ add_library(coreNES
   include/nes.h
   include/ppu.h
   include/mapper.h
+  include/mapper000.h
   include/cartridge.h
 )
 
