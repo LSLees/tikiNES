@@ -7,6 +7,7 @@ private:
 		U16 m_wram[64000];
 
 public:
-	void wramWrite(U16 addr, U16 data);
-	U16 wramRead(U16 addr);
+	void Reset();
+	void Write(U16 addr, U16 data);
+	U8 Read(U16 addr);
 };

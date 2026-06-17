@@ -1,11 +1,19 @@
 #include "../include/mem.h"
 
-void WRAM::wramWrite(U16 addr, U16 data)
+void WRAM::Reset()
+{
+	for (int i = 0; i < 64000; i++)
+	{
+		this->m_wram[i] = 0;
+	}
+}
+
+void WRAM::Write(U16 addr, U16 data)
 {
 	this->m_wram[addr] = data;
 }
 
-U16 WRAM::wramRead(U16 addr)
+U8 WRAM::Read(U16 addr)
 {
 	return this->m_wram[addr];
 }
