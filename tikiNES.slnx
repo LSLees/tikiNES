@@ -1,7 +1,0 @@
-<Solution>
-  <Configurations>
-    <Platform Name="x64" />
-    <Platform Name="x86" />
-  </Configurations>
-  <Project Path="tikiNES.vcxproj" Id="13fa4727-a6c8-4e2f-a7ed-fbb2f8dfd6d1" />
-</Solution>
