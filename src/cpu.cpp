@@ -93,3 +93,17 @@ void CPU::STA_absX() // Store absolute + X, A
 {
 	this->nes->wram.Write(Fetch16() + this->X, this->A);
 }
+
+void CPU::STA_absY() // Store absolute + Y, A
+{
+	this->nes->wram.Write(Fetch16() + this->Y, this->A);
+}
+
+void CPU::INC_abs() // Increment absolute
+{
+	U16 address = Fetch16();
+	U8 data = this->nes->wram.Read(address) + 1;
+	this->nes->wram.Write(address, data);
+	data == 0 ? flagSet(flag_Z) : flagSet(flag_Z);
+	data & 0x80 ? flagSet(flag_N) : flagSet(flag_N);
+}

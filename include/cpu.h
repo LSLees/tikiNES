@@ -39,4 +39,6 @@ struct CPU
 	void LDY_I();
 	void STA_abs();
 	void STA_absX();
+	void STA_absY();
+	void INC_abs();
 };

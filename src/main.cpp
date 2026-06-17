@@ -9,24 +9,17 @@
 
 int main(int argc, char* argv[])
 {
-	if (!SDL_Init(SDL_INIT_VIDEO))
-	{
-		return 1;
-	}
-
+	// SDL setup
 	SDL_Window* window = SDL_CreateWindow("tikiNES", 800, 600, 0);
 	SDL_DestroyWindow(window);
 	SDL_Quit();
 
+	// NES setup
 	NES* nes = new NES;
 	nes->cpu.Step();
-	delete nes;
-	//return 0;
 
 	// Open .nes file
 	std::ifstream file("../test/Super Mario Bros. (World).nes", std::ios::binary);
-
-	
 
 	// Reading first 8 bytes
 	unsigned char bytes[8];
@@ -38,23 +31,6 @@ int main(int argc, char* argv[])
 		std::cout << std::hex << (int)bytes[i] << ' ';
 	}
 
-	if (!file)
-	{
-		std::cout << "Failed\n";
-		return 1;
-	}
-	else
-	{
-		std::cout << "Found\n";
-		return 0;
-	}
-
 	delete nes;
-
-	while (1)
-	{
-
-	}
-
 	return 0;
 }
