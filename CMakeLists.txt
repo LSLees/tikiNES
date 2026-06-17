@@ -4,6 +4,7 @@ project(tikiNES LANGUAGES C CXX)
 
 include_directories(
   src
+  include
   contrib/cl-windows/include
 )
 
