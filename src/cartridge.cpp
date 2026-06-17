@@ -1,15 +1,19 @@
+#include <cstdint>
+#include <vector>
 #include <fstream>
+#include <stdexcept>
+#include <memory>
+#include <cstring>
+
 #include "cartridge.h"
 
 
-bool Cartridge::loadROM(const std::string& path)
+bool Cartridge::loadROM(char* path)
 {
-	std::ifstream file("../test/Super Mario Bros. (World).nes", std::ios::binary);
+	path = "Super Mario Bros. (World).nes";
 
-	if (!file)
-	{
-		return false;
-	}
+	std::vector<U8> file;
+	std::ifstream f(path, std::ios::binary);
 
-	// Diesect iNes header for mapper values
+	return false;
 }

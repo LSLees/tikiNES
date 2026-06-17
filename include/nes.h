@@ -9,5 +9,5 @@ struct NES
 	WRAM wram;
 	Cartridge cart;
 
-	void Start();
+	void Reset();
 };
