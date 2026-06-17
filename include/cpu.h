@@ -1,5 +1,5 @@
 #pragma once
-#include "../include/common.h"
+#include "common.h"
 
 #define flag_C 0x01	// Carry
 #define flag_Z 0x02 // Zero
@@ -41,4 +41,5 @@ struct CPU
 	void STA_absX();
 	void STA_absY();
 	void INC_abs();
+	void INC_absX();
 };

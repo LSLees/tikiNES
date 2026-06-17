@@ -1,11 +1,13 @@
 #pragma once
-#include "../include/cpu.h"
-#include "../include/mem.h"
+#include "cpu.h"
+#include "mem.h"
+#include "cartridge.h"
 
 struct NES
 {
 	CPU cpu;
 	WRAM wram;
+	Cartridge cart;
 
-	NES();
+	void Start();
 };

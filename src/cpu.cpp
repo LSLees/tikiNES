@@ -1,6 +1,6 @@
 #include <iostream>
-#include "../include/cpu.h"
-#include "../include/nes.h"
+#include "cpu.h"
+#include "nes.h"
 
 void CPU::Reset(NES* nes)
 {
@@ -16,6 +16,9 @@ void CPU::Reset(NES* nes)
 	this->instructions[0xa0] = &CPU::LDY_I;
 	this->instructions[0x8d] = &CPU::STA_abs;
 	this->instructions[0x9d] = &CPU::STA_absX;
+	this->instructions[0x99] = &CPU::STA_absY;
+	this->instructions[0xee] = &CPU::INC_abs;
+	this->instructions[0xfe] = &CPU::INC_absX;
 }
 
 void CPU::displayReg()
@@ -57,9 +60,15 @@ U16 CPU::Fetch16()
 
 void CPU::Step()
 {
-	//U8 opcode = Fetch8();
-	// U8 operand = Fetch8();
-	U8 opcode = 0xa9;
+	U8 opcode = Fetch8();
+
+	if (instructions[opcode] == nullptr)
+	{
+		std::cout << "Opcode: " << opcode << " not defined!" << std::endl;
+		return;
+	}
+
+	std::cout << "Executing: " << (int)opcode << std::endl;
 	(this->*instructions[opcode])();
 }
 
@@ -104,6 +113,15 @@ void CPU::INC_abs() // Increment absolute
 	U16 address = Fetch16();
 	U8 data = this->nes->wram.Read(address) + 1;
 	this->nes->wram.Write(address, data);
-	data == 0 ? flagSet(flag_Z) : flagSet(flag_Z);
-	data & 0x80 ? flagSet(flag_N) : flagSet(flag_N);
+	data == 0 ? flagSet(flag_Z) : flagClear(flag_Z);
+	data & 0x80 ? flagSet(flag_N) : flagClear(flag_N);
+}
+
+void CPU::INC_absX() // Increment absolute + X
+{
+	U16 address = Fetch16() + this->X;
+	U8 data = this->nes->wram.Read(address) + 1;
+	this->nes->wram.Write(address, data);
+	data == 0 ? flagSet(flag_Z) : flagClear(flag_Z);
+	data & 0x80 ? flagSet(flag_N) : flagClear(flag_N);
 }

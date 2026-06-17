@@ -1,5 +1,4 @@
 #include "common.h"
-
 #include "mapper.h"
 #include <iostream>
 #include <vector>
