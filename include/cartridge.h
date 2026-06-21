@@ -9,8 +9,9 @@ struct Header // First 16 bytes of ROM
 	U8 chrSize; // Size of CHR ROM * 8 KB
 	U8 flags6;
 	U8 flags7;
-	U8 mapperID;
-	U8 trainer;
+	U8 flags8;
+	U8 flags9;
+	U8 flags10;
 };
 
 struct Cartridge
