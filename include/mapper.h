@@ -14,9 +14,9 @@ struct Mapper
         GxROM = 66,*/
     };
 
-    virtual void writePRG();
-    virtual U8 readPRG();
+    virtual bool mapPRGWrite(U16 addr, U16& mappedAddr) = 0;
+    virtual bool mapPRGRead(U16 addr, U16& mappedAddr) = 0;
 
-    virtual void writeCHR();
-    virtual U8 readCHR();
+    virtual bool mapCHRWrite(U16 addr, U16& mappedAddr) = 0;
+    virtual bool mapCHRRead(U16 addr, U16& mappedAddr) = 0;
 };
