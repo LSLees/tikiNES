@@ -1,18 +1,21 @@
 #include "common.h"
 
+
+enum MapperType
+{
+    NROM = 0
+    /*SxROM = 1,
+    UxROM = 2,
+    CNROM = 3,
+    MMC3 = 4,
+    AxROM = 7,
+    ColorDreams = 11,
+    GxROM = 66,*/
+};
+
 struct Mapper
 {
-    enum Type
-    {
-        NROM = 0, // 
-        /*SxROM = 1,
-        UxROM = 2,
-        CNROM = 3,
-        MMC3 = 4,
-        AxROM = 7,
-        ColorDreams = 11,
-        GxROM = 66,*/
-    };
+    MapperType Type;
 
     virtual bool mapPRGWrite(U16 addr, U16& mappedAddr) = 0;
     virtual bool mapPRGRead(U16 addr, U16& mappedAddr) = 0;

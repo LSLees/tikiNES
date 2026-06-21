@@ -3,6 +3,8 @@
 #include "mem.h"
 #include "cartridge.h"
 
+enum MapperType;
+
 struct NES
 {
 	CPU cpu;
@@ -10,4 +12,5 @@ struct NES
 	Cartridge cart;
 
 	void Reset();
+	void InitMapper(MapperType type);
 };

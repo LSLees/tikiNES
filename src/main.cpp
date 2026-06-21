@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
 	//NES setup
 	NES* nes = new NES;
 	nes->Reset();
-	nes->cart.loadROM(argv[2]);
+	nes->cart.loadROM(&nes->cart, argv[2]);
 
 	delete nes;
 	return 0;
