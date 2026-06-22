@@ -3,14 +3,15 @@
 #include "mem.h"
 #include "cartridge.h"
 
-enum MapperType;
+struct Mapper;
 
 struct NES
 {
 	CPU cpu;
 	WRAM wram;
 	Cartridge cart;
+	Mapper* mapper;
 
 	void Reset();
-	void InitMapper(MapperType type);
+	bool InitMapper(U8 mID);
 };

@@ -15,8 +15,6 @@ enum MapperType
 
 struct Mapper
 {
-    MapperType Type;
-
     virtual bool mapPRGWrite(U16 addr, U16& mappedAddr) = 0;
     virtual bool mapPRGRead(U16 addr, U16& mappedAddr) = 0;
 

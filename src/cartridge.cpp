@@ -1,36 +1,30 @@
-#include <cstdint>
-#include <vector>
 #include <fstream>
-#include <stdexcept>
-#include <memory>
-#include <cstring>
+#include <iostream>
 
 #include "cartridge.h"
 
 
-bool Cartridge::loadROM(Cartridge* cart, char* path)
+bool Cartridge::loadROM(char* path)
 {
 	path = "Super Mario Bros. (World).nes";
+
+	std::cout << "Reading- " << path << "- ";
 
 	// Open .nes file
 	std::ifstream rom(path, std::ios::binary);
 
 	if (!rom.is_open())
 	{
-		std::cout << "Failed to open rom" << std::endl;
+		std::cout << "Failed!" << std::endl;
 		return false;
 	}
-	
-	std::cout << "Printing header:" << std::endl;
 
+	std::cout << "Success!" << std::endl;
+
+	// Get header bytes 0-15
 	U8 header[16];
 	rom.read(reinterpret_cast<char*>(header), sizeof(header));
-	
-	for (int i = 0; i < sizeof(header); i++)
-	{
-		std::cout << std::dec << i << ": ";
-		std::cout << std::hex << static_cast<int>(header[i]) << std::endl;
-	}
+	std::cout << "Header- ";
 
 	// Check valid iNes header
 	if (header[0] != 0x4e || header[1] != 0x45 || header[2] != 0x53 || header[3] != 0x1a)
@@ -39,11 +33,50 @@ bool Cartridge::loadROM(Cartridge* cart, char* path)
 		return false;
 	}
 
-	U8 mapperID = (header[6] >> 4) | header[7] & 0xF0;
-	std::cout << std::endl << "mapperID: " << static_cast<int>(mapperID) << std::endl;
+	// Print header
+	for (int i = 0; i < sizeof(header); i++)
+	{
+		std::cout << std::hex << static_cast<int>(header[i]) << " ";
+	}
 
-	int prgROMStart = (header[6] && 0xb100) != 0 ? 528 : 16;
-	cart->m_prgROM.resize(header[4] * 16000);
+	std::cout << std::endl;
+
+	// Set mapper
+	this->mID = (header[6] >> 4) | (header[7] & 0xF0);
+
+
+	// Parse prgROM
+	std::cout << "Parsing prgROM- ";
+
+	if (header[6] & 0x04)
+	{
+		rom.seekg(512, std::ios::cur);
+	}
+
+	int prgSize = header[4] * 16384;
+	this->m_prgROM.resize(prgSize);
+	
+	if (!rom.read(reinterpret_cast<char*>(this->m_prgROM.data()), prgSize))
+	{
+		std::cout << "Failed!" << std::endl;
+		return false;
+	}
+
+	std::cout << "Success!" << std::endl;
+
+	// Parse chrROM
+	std::cout << "Parsing chrROM- ";
+
+	int chrSize = header[5] * 8192;
+	this->m_chrROM.resize(chrSize);
+
+	if (!rom.read(reinterpret_cast<char*>(this->m_chrROM.data()), chrSize))
+	{
+		std::cout << "Failed!" << std::endl;
+		return false;
+	}
+
+	std::cout << "Success!" << std::endl;
 
 	return true;
 }
