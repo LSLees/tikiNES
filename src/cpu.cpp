@@ -6,7 +6,7 @@ void CPU::Reset(NES* nes)
 {
 	this->nes = nes;
 
-	this->PC = 0; // find entry point?
+	this->PC = nes->Read(0xfffc) | (nes->Read(0xfffd) << 8 ); // Reset vector
 	this->S = 0xfd;
 	this->P = 0x24;
 
@@ -21,14 +21,9 @@ void CPU::Reset(NES* nes)
 	this->instructions[0xfe] = &CPU::INC_absX;
 }
 
-void CPU::displayReg()
+void CPU::printPC()
 {
-	std::cout << " A: " << static_cast<U16>(this->A) << std::endl;
-	std::cout << " X: " << static_cast<U16>(this->X) << std::endl;
-	std::cout << " Y: " << static_cast<U16>(this->Y) << std::endl;
-	std::cout << "PC: " << static_cast<U16>(this->PC) << std::endl;
-	std::cout << " S: " << static_cast<U16>(this->S) << std::endl;
-	std::cout << " P: " << static_cast<U16>(this->P) << std::endl;
+	std::cout << "Reset vector- " << static_cast<U16>(this->PC) << std::endl;
 }
 
 void CPU::flagSet(U8 flag)
@@ -48,7 +43,7 @@ bool CPU::flagRead(U8 flag)
 
 U8 CPU::Fetch8()
 {
-	return this->nes->wram.Read(this->PC++);
+	return this->nes->Read(this->PC++);
 }
 
 U16 CPU::Fetch16()
@@ -64,11 +59,11 @@ void CPU::Step()
 
 	if (instructions[opcode] == nullptr)
 	{
-		std::cout << "Opcode: " << opcode << " not defined!" << std::endl;
+		std::cout << std::hex << "Opcode- 0x" << static_cast<int>(opcode) << " not defined!" << std::endl;
 		return;
 	}
 
-	std::cout << "Executing: " << (int)opcode << std::endl;
+	std::cout << "Executing- " << (int)opcode << std::endl;
 	(this->*instructions[opcode])();
 }
 
@@ -95,24 +90,24 @@ void CPU::LDY_I() // Load Y, immediate
 
 void CPU::STA_abs() // Store absolute, A
 {
-	this->nes->wram.Write(Fetch16(), this->A);
+	this->nes->Write(Fetch16(), this->A);
 }
 
 void CPU::STA_absX() // Store absolute + X, A
 {
-	this->nes->wram.Write(Fetch16() + this->X, this->A);
+	this->nes->Write(Fetch16() + this->X, this->A);
 }
 
 void CPU::STA_absY() // Store absolute + Y, A
 {
-	this->nes->wram.Write(Fetch16() + this->Y, this->A);
+	this->nes->Write(Fetch16() + this->Y, this->A);
 }
 
 void CPU::INC_abs() // Increment absolute
 {
 	U16 address = Fetch16();
-	U8 data = this->nes->wram.Read(address) + 1;
-	this->nes->wram.Write(address, data);
+	U8 data = this->nes->Read(address) + 1;
+	this->nes->Write(address, data);
 	data == 0 ? flagSet(flag_Z) : flagClear(flag_Z);
 	data & 0x80 ? flagSet(flag_N) : flagClear(flag_N);
 }
@@ -120,8 +115,8 @@ void CPU::INC_abs() // Increment absolute
 void CPU::INC_absX() // Increment absolute + X
 {
 	U16 address = Fetch16() + this->X;
-	U8 data = this->nes->wram.Read(address) + 1;
-	this->nes->wram.Write(address, data);
+	U8 data = this->nes->Read(address) + 1;
+	this->nes->Write(address, data);
 	data == 0 ? flagSet(flag_Z) : flagClear(flag_Z);
 	data & 0x80 ? flagSet(flag_N) : flagClear(flag_N);
 }

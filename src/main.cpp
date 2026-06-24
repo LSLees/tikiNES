@@ -13,12 +13,8 @@ int main(int argc, char* argv[])
 
 	//NES setup
 	NES* nes = new NES;
-	nes->Reset();
-
-	if (nes->cart.loadROM(argv[2]))
-	{
-		nes->InitMapper(nes->cart.mID);
-	}
+	char* rom = argv[1];
+	nes->Reset(rom);
 
 	delete nes;
 	return 0;

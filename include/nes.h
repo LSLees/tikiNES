@@ -12,6 +12,9 @@ struct NES
 	Cartridge cart;
 	Mapper* mapper;
 
-	void Reset();
+	void Reset(char* rom);
 	bool InitMapper(U8 mID);
+
+	U8 Read(U16 addr);
+	void Write(U16 addr, U8 data);
 };

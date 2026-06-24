@@ -80,3 +80,13 @@ bool Cartridge::loadROM(char* path)
 
 	return true;
 }
+
+U8 Cartridge::prgRead(U16 addr)
+{
+	return m_prgROM[addr];
+}
+
+void Cartridge::prgWrite(U16 addr, U8 data)
+{
+	m_prgROM[addr] = data;
+}

@@ -21,7 +21,7 @@ struct CPU
 	U8 S = 0;	// Stack pointer
 	U8 P = 0;	// Status reg
 
-	void displayReg();
+	void printPC();
 
 	void flagSet(U8 flag);
 	void flagClear(U8 flag);
