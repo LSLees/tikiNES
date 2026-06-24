@@ -42,4 +42,6 @@ struct CPU
 	void STA_absY();
 	void INC_abs();
 	void INC_absX();
+	void SEI();
+	void CLD();
 };

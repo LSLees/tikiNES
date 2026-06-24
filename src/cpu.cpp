@@ -19,6 +19,9 @@ void CPU::Reset(NES* nes)
 	this->instructions[0x99] = &CPU::STA_absY;
 	this->instructions[0xee] = &CPU::INC_abs;
 	this->instructions[0xfe] = &CPU::INC_absX;
+	this->instructions[0x78] = &CPU::SEI;
+	this->instructions[0xd8] = &CPU::CLD;
+
 }
 
 void CPU::printPC()
@@ -119,4 +122,14 @@ void CPU::INC_absX() // Increment absolute + X
 	this->nes->Write(address, data);
 	data == 0 ? flagSet(flag_Z) : flagClear(flag_Z);
 	data & 0x80 ? flagSet(flag_N) : flagClear(flag_N);
+}
+
+void CPU::SEI() // Set interrupts
+{
+	flagSet(flag_I);
+}
+
+void CPU::CLD() // Clear decimal
+{
+	flagClear(flag_B); // ??
 }

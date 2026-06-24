@@ -6,15 +6,15 @@
 
 int main(int argc, char* argv[])
 {
-	// SDL setup
-	SDL_Window* window = SDL_CreateWindow("tikiNES", 800, 600, 0);
-	SDL_DestroyWindow(window);
-	SDL_Quit();
-
 	//NES setup
 	NES* nes = new NES;
 	char* rom = argv[1];
 	nes->Reset(rom);
+
+	// SDL setup
+	SDL_Window* window = SDL_CreateWindow("tikiNES", 800, 600, 0);
+	SDL_DestroyWindow(window);
+	SDL_Quit();
 
 	delete nes;
 	return 0;
