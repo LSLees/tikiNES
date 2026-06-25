@@ -63,10 +63,11 @@ void CPU::Step()
 	if (instructions[opcode] == nullptr)
 	{
 		std::cout << std::hex << "Opcode- 0x" << static_cast<int>(opcode) << " not defined!" << std::endl;
+		nes->valid = false;
 		return;
 	}
 
-	std::cout << "Executing- " << (int)opcode << std::endl;
+	std::cout << "Executing- 0x" << (int)opcode << std::endl;
 	(this->*instructions[opcode])();
 }
 

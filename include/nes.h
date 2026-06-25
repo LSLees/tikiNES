@@ -7,6 +7,8 @@ struct Mapper;
 
 struct NES
 {
+	bool valid = true; // temp
+
 	CPU cpu;
 	WRAM wram;
 	Cartridge cart;

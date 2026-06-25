@@ -14,7 +14,7 @@ void NES::Reset(char* rom)
 	cpu.printPC();
 	std::cout << "..." << std::endl;
 
-	for (int i = 0; i < 10; i++)
+	while(valid)
 	{
 		cpu.Step();
 	}
