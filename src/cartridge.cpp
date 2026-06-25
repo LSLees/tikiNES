@@ -6,8 +6,6 @@
 
 bool Cartridge::loadROM(char* path)
 {
-	path = "Super Mario Bros. (World).nes";
-
 	std::cout << "Reading- " << path << "- ";
 
 	// Open .nes file

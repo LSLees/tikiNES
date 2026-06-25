@@ -21,27 +21,67 @@ struct CPU
 	U8 S = 0;	// Stack pointer
 	U8 P = 0;	// Status reg
 
-	void printPC();
+	void Reset(NES* nes);
+	void Step();
 
+	// Logging
+	void logOp(const char* name);
+	void logOp(const char* name, U8 operand);
+	void logOp(const char* name, U16 operand);
+	U8 tOpcode = 0;
+
+	// Flags
 	void flagSet(U8 flag);
 	void flagClear(U8 flag);
 	bool flagRead(U8 flag);
 
-	void Reset(NES* nes);
 	U8 Fetch8();
 	U16 Fetch16();
-	void Step();
+	void stackPush(U8 data);
+	U8 stackPull();
 
 	// Instructions
 	void (CPU::* instructions[256])() = { 0 };
-	void LDA_I();
-	void LDX_I();
-	void LDY_I();
-	void STA_abs();
-	void STA_absX();
-	void STA_absY();
-	void INC_abs();
-	void INC_absX();
-	void SEI();
-	void CLD();
+
+	// Load
+	void LDA_abs(); // Load A, [imm]
+	void LDA_I(); // Load A, imm
+	void LDX_I(); // Load X, imm
+	void LDY_I(); // Load Y, imm
+
+	// Store
+	void STA_abs(); // Store abs, A
+	void STA_absX(); // Store abs + X, A
+	void STA_absY(); // Store abs + Y, A
+
+	// Increment
+	void INC_abs(); // Inc abs
+	void INC_absX(); // Inc abs + X
+
+	// Flags
+	void SEI(); // Set interrupts
+	void CLD(); // Clear decimal
+
+	// Stack
+	void PHA(); // Push A
+	void PLA(); // Pull A
+	void PHP(); // Push P
+	void PLP(); // Pull P
+
+	// Jump
+	void JSR(); // Jump to subroutine
+	void RTS(); // Return from subroutine
+
+	// Transfer
+	void TXA();
+	void TXS();
+	void TAX();
+	void TSX();
+
+	// Branch
+	void BPL();
+
+	// Decrement
+	void DEC_abs();
+	void DEC_absX();
 };
