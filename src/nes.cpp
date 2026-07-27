@@ -16,10 +16,19 @@ void NES::Reset(char* rom)
 	std::cout << "Reset vector- " << static_cast<U16>(cpu.PC) << std::endl;
 	std::cout << "Running- " << rom << std::endl;
 
-	while(valid)
+	Step();
+}
+
+void NES::Step()
+{
+	bool running = true;
+	while (running)
 	{
 		std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		cpu.Step();
+		ppu.Step();
+		ppu.Step();
+		ppu.Step();
 	}
 }
 

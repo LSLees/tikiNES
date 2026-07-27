@@ -39,15 +39,15 @@ void CPU::Reset(NES* nes)
 
 void CPU::logOp(const char* name)
 {
-	std::cout << std::hex << "$" << static_cast<int>(PC) << " [0x" << (int)tOpcode << "] - " << name << "\n";
+	std::cout << std::hex << "$" << static_cast<int>(PC - 1) << " [0x" << (int)tOpcode << "] - " << name << "\n";
 }
 void CPU::logOp(const char* name, U8 operand)
 {
-	std::cout << std::hex << "$" << static_cast<int>(PC) << " [0x" << (int)tOpcode << "] - " << name << " #0x" << (int)operand << "\n";
+	std::cout << std::hex << "$" << static_cast<int>(PC - 1) << " [0x" << (int)tOpcode << "] - " << name << " #0x" << (int)operand << "\n";
 }
 void CPU::logOp(const char* name, U16 operand)
 {
-	std::cout << std::hex << "$" << static_cast<int>(PC) << " [0x" << (int)tOpcode << "] - " << name << " $" << (int)operand << "\n";
+	std::cout << std::hex << "$" << static_cast<int>(PC - 2) << " [0x" << (int)tOpcode << "] - " << name << " $" << (int)operand << "\n";
 }
 
 void CPU::flagSet(U8 flag)
@@ -96,7 +96,7 @@ void CPU::Step()
 
 	if (instructions[opcode] == nullptr)
 	{
-		nes->valid = false;
+		nes->running = false;
 		return;
 	}
 

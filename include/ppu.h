@@ -2,8 +2,7 @@
 
 struct PPU
 {
-	void step();
-	void update();
+	void Step();
 
 private:
 
