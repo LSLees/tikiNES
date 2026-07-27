@@ -89,7 +89,7 @@ U8 CPU::stackPull()
 	return nes->Read(0x0100 | this->S);
 }
 
-void CPU::Step()
+U8 CPU::Step()
 {
 	U8 opcode = Fetch8();
 	tOpcode = opcode;
@@ -97,10 +97,12 @@ void CPU::Step()
 	if (instructions[opcode] == nullptr)
 	{
 		nes->running = false;
-		return;
+		return 0;
 	}
 
+	U8 cycles = baseCycles[opcode];
 	(this->*instructions[opcode])();
+	return cycles;
 }
 
 void CPU::LDA_abs()

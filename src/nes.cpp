@@ -26,10 +26,11 @@ void NES::Step()
 	while (running)
 	{
 		std::this_thread::sleep_for(std::chrono::milliseconds(50));
-		cpu.Step();
-		ppu.Step();
-		ppu.Step();
-		ppu.Step();
+		U8 cyc = cpu.Step();
+		for (int i = 0; i < cyc * 3; i++)
+		{
+			ppu.Step();
+		}
 	}
 }
 
