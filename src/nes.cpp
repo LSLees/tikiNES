@@ -24,12 +24,16 @@ void NES::Step()
 {
 	while (running)
 	{
-		std::this_thread::sleep_for(std::chrono::milliseconds(50));
-		U8 cyc = cpu.Step();
-		for (int i = 0; i < cyc * 3; i++)
+		if (ppu.FrameComplete())
 		{
-			ppu.Step();
+			std::this_thread::sleep_for(std::chrono::milliseconds(50));
+			U8 cyc = cpu.Step();
+			for (int i = 0; i < cyc * 3; i++)
+			{
+				ppu.Step();
+			}
 		}
+		
 	}
 }
 
@@ -113,7 +117,12 @@ void NES::PPUWrite(U16 addr, U8 data)
 	return;
 }
 
+bool NES::FrameComplete() const
+{
+	return ppu.FrameComplete();
+}
+
 void NES::ClearFrameFlag()
 {
-	m_frameComplete = false;
+	ppu.ClearFrameFlag();
 }

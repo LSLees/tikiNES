@@ -85,15 +85,15 @@ void PPU::WriteRegister(U16 addr, U8 data)
 	}
 }
 
-//bool PPU::FrameComplete() const
-//{
-//	return m_frameComplete;
-//}
+bool PPU::FrameComplete() const
+{
+	return m_frameComplete;
+}
 
-//void PPU::ClearFrameFlag()
-//{
-//	m_frameComplete = false;
-//}
+void PPU::ClearFrameFlag()
+{
+	m_frameComplete = false;
+}
 
 const std::array<uint32_t, 256 * 240>& PPU::GetFrameBuffer() const
 {

@@ -18,8 +18,7 @@ struct PPU
 
 
 	bool FrameComplete() const; // Checks frame state
-
-	//void ClearFrameFlag(); // Not needed here?
+	void ClearFrameFlag();
 
 
 	const std::array<uint32_t, 256 * 240>& GetFrameBuffer() const;
@@ -52,7 +51,7 @@ private:
 	int m_cycle = 0;
 	int m_scanline = 0;
 
-	bool m_frameComplete = false;
+	bool m_frameComplete = true;
 
 	// Output Frame Buffer, for SDL
 	std::array<uint32_t, 256 * 240> m_frameBuffer{};

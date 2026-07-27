@@ -29,6 +29,7 @@ struct NES
 	U8 PPURead(U16 addr); // PPU Read
 	void PPUWrite(U16 addr, U8 data); // PPU Write
 
+	bool FrameComplete() const; // Should call in SDL render
 	void ClearFrameFlag();
 
 private:
