@@ -102,3 +102,13 @@ void NES::Write(U16 addr, U8 data)
 		}
 	}
 }
+
+U8 NES::PPURead(U16 addr)
+{
+	return addr;
+}
+
+void NES::PPUWrite(U16 addr, U8 data)
+{
+	return;
+}

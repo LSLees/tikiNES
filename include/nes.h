@@ -19,7 +19,16 @@ struct NES
 	void Reset(char* rom);
 	bool InitMapper(U8 mID);
 
-	U8 Read(U16 addr);
-	void Write(U16 addr, U8 data);
-	void Step();
+	void Step(); // 
+	
+	//CPU Bus
+	U8 Read(U16 addr); // CPU Read
+	void Write(U16 addr, U8 data); // CPU Write
+
+	// PPU Bus
+	U8 PPURead(U16 addr); // PPU Read
+	void PPUWrite(U16 addr, U8 data); // PPU Write
+
+private:
+	
 };

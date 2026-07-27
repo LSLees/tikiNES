@@ -6,14 +6,22 @@ struct NES;
 
 struct PPU
 {
-	void Step();
-	void Reset();
-
 	// Reset PPU state
 	void Reset(NES* nes);
 
-	// One cycle
-	void Clock();
+	// Three cycles
+	void Step();
+
+	// CPU access to the PPU registers
+	U8 ReadRegister(U16 addr);
+	void WriteRegister(U16 addr, U8 data);
+
+
+	bool FrameComplete() const; // Checks frame state
+	void ClearFrameFlag();
+
+
+	const std::array<uint32_t, 256 * 240>& GetFrameBuffer() const;
 
 	U8 Status = 0;
 
@@ -32,7 +40,7 @@ private:
 	int m_cycle = 0;
 	int m_scanline = 0;
 
-	bool m_frameCompleted = false;
+	bool m_frameComplete = false;
 
 
 
