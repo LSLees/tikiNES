@@ -22,7 +22,6 @@ void NES::Reset(char* rom)
 
 void NES::Step()
 {
-	bool running = true;
 	while (running)
 	{
 		std::this_thread::sleep_for(std::chrono::milliseconds(50));
@@ -112,4 +111,9 @@ U8 NES::PPURead(U16 addr)
 void NES::PPUWrite(U16 addr, U8 data)
 {
 	return;
+}
+
+void NES::ClearFrameFlag()
+{
+	m_frameComplete = false;
 }
