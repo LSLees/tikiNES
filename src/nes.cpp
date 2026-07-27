@@ -11,6 +11,7 @@ void NES::Reset(char* rom)
 	InitMapper(cart.mID);
 
 	cpu.Reset(this);
+	ppu.Reset(this);
 	wram.Reset();
 
 	std::cout << "Reset vector- " << static_cast<U16>(cpu.PC) << std::endl;

@@ -1,13 +1,16 @@
 #pragma once
-
 #include <array>
+#include "common.h"
+
+struct NES;
 
 struct PPU
 {
 	void Step();
+	void Reset();
 
 	// Reset PPU state
-	void Reset();
+	void Reset(NES* nes);
 
 	// One cycle
 	void Clock();
@@ -17,7 +20,7 @@ struct PPU
 private:
 
 	// Connect cartridge
-	Cartridge* m_cartridge = nullptr;
+	NES* m_NES = nullptr;
 
 	// Internal VRAM (2KB)
 	std::array<U8, 2048> m_nameTables{};

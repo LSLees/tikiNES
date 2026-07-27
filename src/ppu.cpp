@@ -1,22 +1,28 @@
 #include "ppu.h"
+
+void PPU::Reset(NES* nes)
+{
+	m_NES = nes;
+}
+
 void PPU::Step()
 {
-	cycle++;
+	m_cycle++;
 
-	if (cycle >= 341)
+	if (m_cycle >= 341)
 	{
-		cycle = 0;
-		scanline++;
+		m_cycle = 0;
+		m_scanline++;
 
-		if (scanline == 241)
+		if (m_scanline == 241)
 		{
-			status |= 0x80;
+			Status |= 0x80;
 		}
 
-		if (scanline >= 262)
+		if (m_scanline >= 262)
 		{
-			scanline = 0;
-			status &= ~0x80;
+			m_scanline = 0;
+			Status &= ~0x80;
 		}
 	}
 }
