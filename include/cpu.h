@@ -103,4 +103,13 @@ struct CPU
 	// Decrement
 	void DEC_abs();
 	void DEC_absX();
+
+	// Comparison
+	void CMP(U8);
+	void CMP_I();
+	void CMP_zpg();
+	void CMP_abs();
+	void CMP_absX();
+	void CMP_absY();
+	void CMP_zpgX();
 };

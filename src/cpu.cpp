@@ -35,6 +35,12 @@ void CPU::Reset(NES* nes)
 	this->instructions[0x10] = &CPU::BPL;
 	this->instructions[0xce] = &CPU::DEC_abs;
 	this->instructions[0xde] = &CPU::DEC_absX;
+	this->instructions[0xc9] = &CPU::CMP_I;
+	this->instructions[0xc5] = &CPU::CMP_zpg;
+	this->instructions[0xd5] = &CPU::CMP_zpgX;
+	this->instructions[0xcd] = &CPU::CMP_abs;
+	this->instructions[0xdd] = &CPU::CMP_absX;
+	this->instructions[0xd9] = &CPU::CMP_absY;
 }
 
 void CPU::logOp(const char* name)
@@ -297,4 +303,76 @@ void CPU::DEC_absX()
 	this->nes->Write(operand, data);
 	data == 0 ? flagSet(flag_Z) : flagClear(flag_Z);
 	data & 0x80 ? flagSet(flag_N) : flagClear(flag_N);
+}
+
+void CPU::CMP(U8 o)
+{
+	U16 result = (U16)A - (U16)o;
+
+	if (A >= o)
+	{
+		flagSet(flag_C);
+	}
+	else
+	{
+		flagClear(flag_C);
+	}
+
+	if ((result & 0xff) == 0)
+	{
+		flagSet(flag_Z);
+	}
+	else
+	{
+		flagClear(flag_Z);
+	}
+
+	if (result & 0x80)
+	{
+		flagSet(flag_N);
+	}
+	else
+	{
+		flagClear(flag_N);
+	}
+}
+
+void CPU::CMP_I()
+{
+	U8 operand = Fetch8();
+	logOp("CMP_I   ", operand);
+	this->CMP(operand);
+}
+
+void CPU::CMP_zpg()
+{
+	U8 addr = Fetch8();
+	U8 data = nes->Read(addr);
+	CMP(data);
+}
+
+void CPU::CMP_zpgX()
+{
+
+}
+
+void CPU::CMP_abs()
+{
+	U16 addr = Fetch16();
+	U8 data = nes->Read(addr);
+	CMP(data);
+}
+
+void CPU::CMP_absX()
+{
+	U16 addr = Fetch16() + X;
+	U8 data = nes->Read(addr);
+	CMP(data);
+}
+
+void CPU::CMP_absY()
+{
+	U16 addr = Fetch16() + Y;
+	U8 data = nes->Read(addr);
+	CMP(data);
 }
